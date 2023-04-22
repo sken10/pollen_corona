@@ -6,6 +6,10 @@
 hexagonal pollen corona
 =======================
 
+.. image:: ./simulation/img/pollen_hex_remark1.png
+    :align: center
+    :scale: 40%
+
 .. toctree::
     :maxdepth: 2
     :caption: Contents:
@@ -13,9 +17,9 @@ hexagonal pollen corona
     /simulation/sim01
     /simulation/sim02
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. Indices and tables
+.. ==================
+.. 
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
