@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>六角形の花粉光環 &#8212; hexagonal-pollen-corona 六角形の花粉コロナ  ドキュメント</title>
+    <title>六角形の花粉光環の数値シミュレーション &#8212; hexagonal-pollen-corona 六角形の花粉コロナ  ドキュメント</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -16,7 +16,7 @@
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="位相による説明" href="sim02.html" />
+    <link rel="next" title="小さなパピラがスギ花粉光環の形に与える影響" href="sim02.html" />
     <link rel="prev" title="Hexagonal pollen corona" href="../index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -26,13 +26,13 @@
           <a href="../genindex.html" title="総合索引"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="sim02.html" title="位相による説明"
+          <a href="sim02.html" title="小さなパピラがスギ花粉光環の形に与える影響"
              accesskey="N">次へ</a> |</li>
         <li class="right" >
           <a href="../index.html" title="Hexagonal pollen corona"
              accesskey="P">前へ</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">hexagonal-pollen-corona 六角形の花粉コロナ  ドキュメント</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">六角形の花粉光環</a></li> 
+        <li class="nav-item nav-item-this"><a href="">六角形の花粉光環の数値シミュレーション</a></li> 
       </ul>
     </div>  
 
@@ -42,16 +42,71 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1>六角形の花粉光環<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
-<p>花粉形状として、つぶれた本体 + パピラ(突起)を仮定すると、六角形の花粉光環
-を再現できる。</p>
-<img alt="../_images/polen_hex_remark.png" class="align-center" src="../_images/polen_hex_remark.png" />
-<p>スギ花粉による多角形の花粉光環が観測されている。花粉の変形やパピラが花粉
-光環の形状に与える影響をシミュレーションで確かめる。フレネル・キルヒホッ
-フの回折積分を直接解いている。計算量は多いが理論と実装の単純さを優先した。
-計算量が O(N^4) なので、N_SEP は 100 くらいが限界。</p>
+<h1>六角形の花粉光環の数値シミュレーション<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/pollen_hex_remark1.png"><img alt="../_images/pollen_hex_remark1.png" src="../_images/pollen_hex_remark1.png" style="width: 540.0px; height: 300.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">図1-1 Hexagonal pollen corona (by immature cedar pollen)</span><a class="headerlink" href="#id7" title="この画像へのパーマリンク">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="../_images/pollen_hex_remark2.png"><img alt="../_images/pollen_hex_remark2.png" src="../_images/pollen_hex_remark2.png" style="width: 540.0px; height: 300.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">図1-2 Hexagonal pollen corona (by mature cedar pollen)</span><a class="headerlink" href="#id8" title="この画像へのパーマリンク">¶</a></p>
+</figcaption>
+</figure>
+<p>朝夕の太陽高度が低いとき、スギ花粉による花粉光環が六角形になることがある。
+この現象がスギ花粉特有のパピラ(突起)によって再現できた(図1-1, 1-2)。
+解析は数値シミュレーションによる。
+解析に使ったプログラムを (<a class="reference internal" href="#sourcecode"><span class="std std-ref">末尾</span></a>) に示す。
+なお、別稿にて、位相を可視化することで小さなパピラの影響を直感的
+に理解することを試みた(<a class="reference internal" href="sim02.html"><span class="doc">小さなパピラがスギ花粉光環の形に与える影響</span></a>)。</p>
+<section id="id2">
+<h2>計算モデル<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>開口面の複素振幅が <span class="math notranslate nohighlight">\(u(x, y)\)</span> の時、像面の複素振幅 <span class="math notranslate nohighlight">\(U(x_q, y_q, z_q)\)</span> は
+以下の式で与えられる(フレネル・キルヒホッフ/Fresnel Kirchhoff の回折積分, <span class="math notranslate nohighlight">\(\lambda\)</span> は波長)。
+シミュレーションでは、<span class="math notranslate nohighlight">\(u(x,y) = 1:開口部, 0:遮蔽部\)</span> として、この回折積分を実直に計算した。
+計算量は多いが理論と実装の単純さを優先した。
+計算量が O(N^4) であり、筆者の環境では N_SEP は 100 くらいが限界。</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}U(x_q,y_q,z_q) = \frac{z_q}{iλ} \iint_\Sigma u(x,y,0)\frac{1}{r^2}exp(ikr) dx dy\\r = \sqrt{(x_q - x)^2 + (y_q - y)^2 + z_q^2}\\k = \frac{2\pi}{λ}\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}U(x_q,y_q,z_q) = \frac{z_q}{i\lambda} \iint_\Sigma u(x,y)\frac{1}{r^2}exp(i\frac{2\pi r}{\lambda}) dx dy\\r = \sqrt{(x_q - x)^2 + (y_q - y)^2 + z_q^2}\end{aligned}\end{align} \]</div>
+</section>
+<section id="id3">
+<h2>六角形の花粉光環に関するあれこれ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>朝夕の太陽高度が低いときに、花粉光環が縦長の楕円になる(場合がある)ことは
+以前から知られていたが、六角形(多角形)になる(場合がある)ことが指摘された
+のは比較的最近のことである。筆者の調べでは Twitter 上で「花粉光環 + 六角
+形」の両方を含む投稿が最初に現れたのは 2022年3月 が最初である。</p>
+<p>皆が不思議に思っていたのは、ほぼ球形といわれるスギ花粉によって六角形の花
+粉光環が現れることだった。花粉が完全な球ではなく(例えば未熟な状態)つぶれ
+ていれば、花粉光環が楕円になることは説明できそうだ。しかし、それが角張っ
+て六角形になる理屈は不明のままであった。</p>
+<p>六角形になる可能性が理論の面から指摘されたのは、翌年 2023年のことである。
+パピラと呼ばれる小さな突起を考慮した形状を FFT にかけると六角形が出現す
+ることが I氏によって示された。FFT を使わずに回折積分を直接解くくことで同
+様の結果を得ていた筆者は、仮説を補強する別解として twitter に結果を投稿
+した。</p>
+<p>(以上は、twitter という狭い範囲の見分にもとづく簡単なまとめであり、
+専門家にとってはあたりまえとう可能性は大いにあり得る。)</p>
+<p>海外事例では、太陽高度が低いときにマツ花粉によって菱形の花粉光環が出現す
+ることが知られており、その理由がマツ花粉の特異な形状によることも解明され
+ている <a class="footnote-reference brackets" href="#id6" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>。今回意外だったのは、スギ花粉の小さなパピラが花粉光環の形状
+に大きく影響することだ。別稿にて、位相を可視化することで小さなパピラの影
+響を直感的に理解することを試みた(<a class="reference internal" href="sim02.html"><span class="doc">小さなパピラがスギ花粉光環の形に与える影響</span></a>)。</p>
+<p>このレポートでは数値シミュレーションの結果だけ扱った。実際に六角形の花粉
+光環が出現するためには、以下のような条件を満たす必要がありそうだ。</p>
+<ul class="simple">
+<li><p>花粉のパピラがしっかりしている</p></li>
+<li><p>大気中で花粉の向きが揃っている(パピラが上または下)</p></li>
+<li><p>花粉を横から見る(太陽高度が低い朝夕に限られる)、</p></li>
+<li><p>上記に加え、花粉がつぶれていると花粉光環が縦長になる</p></li>
+</ul>
+<p>六角形の花粉光環という言葉を使っているが、明るい部分の個数は内側から外側
+にむかって 6, 8, 10 と増える。六角形より外側の明部の強度は弱く観測が難し
+いいため、一番内側の六角形で多重多角形構造を代表している。</p>
+</section>
+<section id="sourcecode">
+<span id="id5"></span><h2>ソースコード<a class="headerlink" href="#sourcecode" title="この見出しへのパーマリンク">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- encoding: utf-8 -*-</span>
 
 <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;Fresnel Kirchhoff&quot;</span>
@@ -125,7 +180,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">yl</span><span class="p">)</span>
     
 <span class="k">def</span> <span class="nf">marker</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
-    <span class="n">rnc</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">rnc</span> <span class="o">=</span> <span class="p">[</span> <span class="c1"># 半径, 角数, 記号</span>
           <span class="p">(</span><span class="mf">2.3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span>
           <span class="p">(</span><span class="mf">3.8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
           <span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -134,8 +189,8 @@
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
             <span class="n">th</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mi">360</span><span class="o">*</span><span class="n">j</span><span class="o">/</span><span class="n">n</span> <span class="o">-</span> <span class="mi">90</span><span class="p">)</span><span class="o">*</span><span class="n">DEG</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
-            <span class="c1"># y = r*np.sin(th)*1.1 # やや楕円 (川村にゃ子さん 2022年4月5日, 熟した花粉?)</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span> <span class="c1"># はっきり楕円 (綾塚さん 2022年3月15日, 未熟な花粉?)</span>
+            <span class="c1"># y = r*np.sin(th)*1.1 # やや縦長 (K さん 2022年4月5日, 熟した花粉?)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span> <span class="c1"># はっきり縦長 (A さん 2022年3月15日, 未熟な花粉?)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">sim</span><span class="p">(</span><span class="n">pr</span><span class="p">,</span> <span class="n">k_cut</span><span class="p">,</span> <span class="n">h_papilla</span><span class="p">,</span> <span class="n">w_papilla</span><span class="p">):</span>
@@ -177,6 +232,17 @@
 </pre></div>
 </div>
 </section>
+<section id="url">
+<h2>参考文献/URL<a class="headerlink" href="#url" title="この見出しへのパーマリンク">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">1</a><span class="fn-bracket">]</span></span>
+<p>Pollen corona/Pine tree, <a class="reference external" href="https://old.meteoros.de/pollen/kiefere.htm">https://old.meteoros.de/pollen/kiefere.htm</a></p>
+</aside>
+</aside>
+<hr class="docutils" />
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -186,6 +252,19 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <div>
+    <h3><a href="../index.html">目次</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">六角形の花粉光環の数値シミュレーション</a><ul>
+<li><a class="reference internal" href="#id2">計算モデル</a></li>
+<li><a class="reference internal" href="#id3">六角形の花粉光環に関するあれこれ</a></li>
+<li><a class="reference internal" href="#sourcecode">ソースコード</a></li>
+<li><a class="reference internal" href="#url">参考文献/URL</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
     <h4>前のトピックへ</h4>
     <p class="topless"><a href="../index.html"
                           title="前の章へ">Hexagonal pollen corona</a></p>
@@ -193,7 +272,7 @@
   <div>
     <h4>次のトピックへ</h4>
     <p class="topless"><a href="sim02.html"
-                          title="次の章へ">位相による説明</a></p>
+                          title="次の章へ">小さなパピラがスギ花粉光環の形に与える影響</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>このページ</h3>
@@ -223,13 +302,13 @@
           <a href="../genindex.html" title="総合索引"
              >索引</a></li>
         <li class="right" >
-          <a href="sim02.html" title="位相による説明"
+          <a href="sim02.html" title="小さなパピラがスギ花粉光環の形に与える影響"
              >次へ</a> |</li>
         <li class="right" >
           <a href="../index.html" title="Hexagonal pollen corona"
              >前へ</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">hexagonal-pollen-corona 六角形の花粉コロナ  ドキュメント</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">六角形の花粉光環</a></li> 
+        <li class="nav-item nav-item-this"><a href="">六角形の花粉光環の数値シミュレーション</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
