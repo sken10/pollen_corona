@@ -8,7 +8,7 @@ hexagonal pollen corona
 
 .. image:: ./simulation/img/pollen_hex_remark1.png
     :align: center
-    :scale: 40%
+    :scale: 60%
 
 .. toctree::
     :maxdepth: 2
