@@ -50,16 +50,16 @@
             
   <section id="id1">
 <h1>六角形の花粉光環の数値シミュレーション<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
-<figure class="align-center" id="id7">
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/pollen_hex_remark1.png"><img alt="../_images/pollen_hex_remark1.png" src="../_images/pollen_hex_remark1.png" style="width: 540.0px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-text">図1-1 Hexagonal pollen corona (by immature cedar pollen)</span><a class="headerlink" href="#id7" title="この画像へのパーマリンク">¶</a></p>
+<p><span class="caption-text">図1-1 Hexagonal pollen corona (by immature cedar pollen)</span><a class="headerlink" href="#id8" title="この画像へのパーマリンク">¶</a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id8">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/pollen_hex_remark2.png"><img alt="../_images/pollen_hex_remark2.png" src="../_images/pollen_hex_remark2.png" style="width: 540.0px; height: 300.0px;" /></a>
 <figcaption>
-<p><span class="caption-text">図1-2 Hexagonal pollen corona (by mature cedar pollen)</span><a class="headerlink" href="#id8" title="この画像へのパーマリンク">¶</a></p>
+<p><span class="caption-text">図1-2 Hexagonal pollen corona (by mature cedar pollen)</span><a class="headerlink" href="#id9" title="この画像へのパーマリンク">¶</a></p>
 </figcaption>
 </figure>
 <p>朝夕の太陽高度が低いとき、スギ花粉による花粉光環が六角形になることがある。
@@ -102,24 +102,30 @@
 専門家にとってはあたりまえとう可能性は大いにあり得る。)</p>
 <p>海外事例では、
 太陽高度が低いときにマツ花粉によって菱形の花粉光環が出現することが知られており、
-その理由がマツ花粉の特異な形状によることも解明されている <a class="footnote-reference brackets" href="#id6" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>。
+その理由がマツ花粉の特異な形状によることも解明されている <a class="footnote-reference brackets" href="#id7" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>。
 今回意外だったのは、スギ花粉の小さなパピラが花粉光環の形状に大きく影響することだ。
-別稿にて、位相を可視化することで小さなパピラの影響を直感的に理解することを試みた(<a class="reference internal" href="sim02.html"><span class="doc">小さなパピラがスギ花粉光環の形に与える影響</span></a>)。</p>
+その機構について(位相を可視化することで)直感的な説明を試みた(<a class="reference internal" href="sim02.html"><span class="doc">小さなパピラがスギ花粉光環の形に与える影響</span></a>)。</p>
+</section>
+<section id="id5">
+<h2>注意点など<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
 <p>このレポートでは数値シミュレーションの結果だけを示している。
-実際に六角形の花粉光環が現れる条件については、別途検討や確認が必要だろう。例えば、</p>
+実際に六角形の花粉光環が現れる条件については、
+別途検討や確認する必要がある。例えば、</p>
 <ul class="simple">
 <li><p>花粉のパピラがしっかりしている</p></li>
 <li><p>大気中で花粉の向きが揃っている(パピラが上または下)</p></li>
 <li><p>花粉を横から見る(太陽高度が低い朝夕に限られる)、</p></li>
 <li><p>上記に加え、花粉がつぶれていると花粉光環が縦長になる</p></li>
 </ul>
-<p>六角形の花粉光環という言葉を使っているが、
+<p>花粉粒子は Mie散乱の適用範囲よりも十分に大きいが、微細なパピラだけ取り出すと、
+ちょうど Mie散乱の適用範囲の境界付近となる。そのあたりは気になるところ。</p>
+<p>最後に、六角形の花粉光環という言葉を使っているが、
 明るい部分の個数は内側から外側にむかって 6, 8, 10 と増える。
 六角形より外側の明部の強度は弱く観測が難しいいため、
 一番内側の六角形で多重多角形構造を代表している。</p>
 </section>
 <section id="sourcecode">
-<span id="id5"></span><h2>解析プログラム(ソースコード)<a class="headerlink" href="#sourcecode" title="この見出しへのパーマリンク">¶</a></h2>
+<span id="id6"></span><h2>解析プログラム(ソースコード)<a class="headerlink" href="#sourcecode" title="この見出しへのパーマリンク">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- encoding: utf-8 -*-</span>
 
 <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;Fresnel Kirchhoff&quot;</span>
@@ -248,7 +254,7 @@
 <section id="url">
 <h2>参考文献/URL<a class="headerlink" href="#url" title="この見出しへのパーマリンク">¶</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id6" role="note">
+<aside class="footnote brackets" id="id7" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">1</a><span class="fn-bracket">]</span></span>
 <p>Pollen corona/Pine tree, <a class="reference external" href="https://old.meteoros.de/pollen/kiefere.htm">https://old.meteoros.de/pollen/kiefere.htm</a></p>
 </aside>
@@ -270,6 +276,7 @@
 <li><a class="reference internal" href="#">六角形の花粉光環の数値シミュレーション</a><ul>
 <li><a class="reference internal" href="#id2">計算モデル</a></li>
 <li><a class="reference internal" href="#id3">六角形の花粉光環に関するあれこれ</a></li>
+<li><a class="reference internal" href="#id5">注意点など</a></li>
 <li><a class="reference internal" href="#sourcecode">解析プログラム(ソースコード)</a></li>
 <li><a class="reference internal" href="#url">参考文献/URL</a></li>
 </ul>
