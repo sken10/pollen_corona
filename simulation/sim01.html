@@ -207,19 +207,19 @@
 </figcaption>
 </figure>
 <p>朝夕の太陽高度が低いとき、スギ花粉による花粉光環が六角形になることがある。
-この現象にスギ花粉特有のパピラ(突起)が関係することこと確認した(図1-1, 1-2)。
+この現象に、スギ花粉の突起(パピラ)が関係することを確認した(図1-1, 1-2)。
 解析は数値シミュレーションによる。
 解析に使ったプログラムを (<a class="reference internal" href="#sourcecode"><span class="std std-ref">末尾</span></a>) に示す。
-別稿にて、小さなパピラが光環の形に大きく影響する機構について、
-(位相を可視化することで)直感的な説明を試みた(<a class="reference internal" href="sim02.html"><span class="doc">小さなパピラがスギ花粉光環の形に与える影響</span></a>)。</p>
+なお別稿にて、小さなパピラが花粉光環の形に大きく影響する機構に関して、
+位相を可視化することで直感的な説明を与えた(<a class="reference internal" href="sim02.html"><span class="doc">小さなパピラがスギ花粉光環の形に与える影響</span></a>)。</p>
 <section id="id2">
 <h2>計算モデル<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">#</a></h2>
-<p>開口面の複素振幅が <span class="math notranslate nohighlight">\(u(x, y)\)</span> の時、像面の複素振幅 <span class="math notranslate nohighlight">\(U(x_q, y_q, z_q)\)</span> は
-以下の式で与えられる
+<p>開口面の複素振幅が <span class="math notranslate nohighlight">\(u(x, y)\)</span> の時、
+像面の複素振幅 <span class="math notranslate nohighlight">\(U(x_q, y_q, z_q)\)</span> は以下の式で与えられる
 (フレネル・キルヒホッフ/Fresnel Kirchhoff の回折積分, <span class="math notranslate nohighlight">\(\lambda\)</span> は波長)。
 シミュレーションでは、<span class="math notranslate nohighlight">\(u(x,y) = 1:開口部, 0:遮蔽部\)</span> として、
 この回折積分をそのまま計算した。
-計算量は多いが理論と実装の単純さを優先した。
+計算量は多いが理論と実装の単純さを優先した結果である。
 計算量が O(N^4) であり、筆者の環境では N_SEP は 100 くらいが限界。</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
