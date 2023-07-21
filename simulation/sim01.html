@@ -226,8 +226,8 @@
 (フレネル・キルヒホッフ/Fresnel Kirchhoff の回折積分, <span class="math notranslate nohighlight">\(\lambda\)</span> は波長)。
 シミュレーションでは、<span class="math notranslate nohighlight">\(u(x,y) = 1:開口部, 0:遮蔽部\)</span> として、
 この回折積分をそのまま計算した。
-計算量は多いが理論と実装の単純さを優先した結果である。
-計算量が O(N^4) であり、筆者の環境では N_SEP は 100 くらいが限界。</p>
+計算量は多いが理論と実装の単純さを優先した。
+計算量は O(N^4) であり、筆者の環境では N_SEP は 100 くらいが限界。</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}U(x_q,y_q,z_q) = \frac{z_q}{i\lambda} \iint_\Sigma u(x,y)\frac{1}{r^2}exp(i\frac{2\pi r}{\lambda}) dx dy\\r = \sqrt{(x_q - x)^2 + (y_q - y)^2 + z_q^2}\end{aligned}\end{align} \]</div>
@@ -248,7 +248,7 @@
 しかし、それが角張って六角形になる理由は不明のままであった。</p>
 <p>2023年になると、
 パピラと呼ばれる小さな突起と六角形の花粉光環の関連を指摘する人物が現れた。
-その手法は花粉形状を FFT にかけて六角形の出現を確認したものだった。
+その手法は花粉形状を FFT にかけて六角形の出現を確認するものだった。
 同じ時期に、FFT を使わずに回折積分を直接解くことで同様の結果を得ていた筆者は、
 仮説を補強する別解として twitter に解析の結果を投稿した。</p>
 <p>(以上は、twitter という狭い範囲の見分にもとづく簡単なまとめであり、
