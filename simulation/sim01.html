@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="検索" href="../search.html" /><link rel="next" title="パピラの影響力の直感的な理解" href="sim02.html" /><link rel="prev" title="hexagonal pollen corona" href="../index.html" />
+<link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="検索" href="../search.html" /><link rel="next" title="パピラの影響を直感的に理解する" href="sim02.html" /><link rel="prev" title="hexagonal pollen corona" href="../index.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2023.05.20 -->
         <title>六角形の花粉光環の数値シミュレーション - hexagonal-pollen-corona 六角形の花粉コロナ ドキュメント</title>
@@ -157,7 +157,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">六角形の花粉光環の数値シミュレーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sim02.html">パピラの影響力の直感的な理解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sim02.html">パピラの影響を直感的に理解する</a></li>
 </ul>
 
 </div>
@@ -218,7 +218,7 @@
 解析は数値シミュレーションによる。
 解析に使ったプログラムを (<a class="reference internal" href="#sourcecode"><span class="std std-ref">末尾</span></a>) に示す。
 なお別稿にて、小さなパピラが花粉光環の形に大きく影響する仕組みについて、
-位相の可視化を用いて直感的な説明を与えた(<a class="reference internal" href="sim02.html"><span class="doc">パピラの影響力の直感的な理解</span></a>)。</p>
+位相の可視化を用いて直感的な説明を与えた(<a class="reference internal" href="sim02.html"><span class="doc">パピラの影響を直感的に理解する</span></a>)。</p>
 <section id="id2">
 <h2>計算モデル<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">#</a></h2>
 <p>開口面の複素振幅が <span class="math notranslate nohighlight">\(u(x, y)\)</span> の時、
@@ -251,26 +251,26 @@
 その手法は花粉形状を FFT にかけて六角形の出現を確認するものだった。
 同じ時期に、FFT を使わずに回折積分を直接解くことで同様の結果を得ていた筆者は、
 仮説を補強する別解として twitter に解析の結果を投稿した。</p>
-<p>(以上は、twitter という狭い範囲の見分にもとづく簡単なまとめであり、
+<p>(以上は、twitter という狭い範囲の見分にもとづくものであり、
 専門家にとってはあたりまえとう可能性は大いにあり得る。)</p>
 <p>海外事例では、
 太陽高度が低いときにマツ花粉によって菱形の花粉光環が出現することが知られており、
 その理由がマツ花粉の特異な形状によることも解明されている <a class="footnote-reference brackets" href="#id7" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>。
 今回意外だったのは、スギ花粉の小さなパピラが花粉光環の形に大きく影響することだった。
-別稿でその仕組みについて直感的な説明を試みた。そちらも合わせて参照されたい(<a class="reference internal" href="sim02.html"><span class="doc">パピラの影響力の直感的な理解</span></a>)。</p>
+別稿でその仕組みについて直感的な説明を試みた。そちらも合わせて参照されたい(<a class="reference internal" href="sim02.html"><span class="doc">パピラの影響を直感的に理解する</span></a>)。</p>
 </section>
 <section id="id5">
 <h2>注意点など<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">#</a></h2>
 <p>このレポートでは数値シミュレーションの結果だけを示している。
 実際に六角形の花粉光環が現れた時の条件について、
-別途検討や確認する必要がある。例えば、</p>
+別途検討や確認をする必要がある。例えば、</p>
 <ul class="simple">
 <li><p>花粉のパピラがしっかりしている</p></li>
 <li><p>大気中で花粉の向きが揃っている(無風が良さそう。パピラは上で安定か)</p></li>
 <li><p>花粉を横から見る(太陽高度が低い朝夕に限られる)、</p></li>
 <li><p>花粉の熟し具合やいびつさ(花粉がつぶれていると花粉光環が縦長になる)</p></li>
 </ul>
-<p>花粉粒子は Mie散乱の適用範囲よりも十分に大きいが、微細なパピラだけ取り出すと、
+<p>スギ花粉は Mie散乱の適用範囲よりも十分に大きいが、微細なパピラだけ取り出すと、
 ちょうど Mie散乱の適用範囲の境界付近となる。そのあたりは気になるところ。</p>
 <p>最後に、六角形の花粉光環という言葉を使っているが、
 明るい部分の個数は内側から外側にむかって 6, 8, 10 と増える。
@@ -429,7 +429,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">パピラの影響力の直感的な理解</div>
+                <div class="title">パピラの影響を直感的に理解する</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
